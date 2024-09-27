@@ -7,9 +7,16 @@ const Home: React.FC = () => {
   const [result, setResult] = useState('');
 
   const handleBypass = async () => {
+    const trimmedUrl = url.trim(); // Убираем пробелы
+
+    if (!trimmedUrl) {
+      setResult('Пожалуйста, введите корректный URL.');
+      return;
+    }
+
     try {
-      const response = await fetch(`https://zaaproject.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`);
-      
+      const response = await fetch(`https://zaaproject.vercel.app/api/fluxus?url=${encodeURIComponent(trimmedUrl)}`);
+
       // Проверка статуса ответа
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
