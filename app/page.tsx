@@ -7,7 +7,7 @@ const Home: React.FC = () => {
   const [result, setResult] = useState('');
 
   const handleBypass = async () => {
-    const trimmedUrl = url.trim(); // Убираем пробелы
+    const trimmedUrl = url.trim();
 
     if (!trimmedUrl) {
       setResult('Пожалуйста, введите корректный URL.');
@@ -17,13 +17,26 @@ const Home: React.FC = () => {
     try {
       const response = await fetch(`https://keybypass.vercel.app/api/fluxus?url=${encodeURIComponent(trimmedUrl)}`);
 
-      // Проверка статуса ответа
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setResult(data.key || 'No key received.'); // Изменено на вывод значения key
+      const key = data.key || 'No key received.';
+
+      // Устанавливаем результат в состояние
+      setResult(key);
+      
+      // Создаем файл и предлагаем скачать
+      const blob = new Blob([key], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'result.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url); // Освобождаем память
     } catch (error) {
       setResult(`Error occurred: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
