@@ -1,4 +1,4 @@
-"use client"; // Добавьте это в начале файла
+"use client";
 
 import React, { useState } from 'react';
 
@@ -11,7 +11,7 @@ const Home: React.FC = () => {
       const response = await fetch(`https://bypass-all.vercel.app/bypass?url=${encodeURIComponent(url)}&apikey=DemonOnTop`);
       const data = await response.json();
       setResult(data.message || 'No response received.');
-    } catch (error) {
+    } catch {
       setResult('Error occurred while fetching data.');
     }
   };
