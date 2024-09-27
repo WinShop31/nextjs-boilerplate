@@ -23,7 +23,7 @@ const Home: React.FC = () => {
       }
 
       const data = await response.json();
-      setResult(data.message || 'No response received.');
+      setResult(data.key || 'No key received.'); // Изменено на вывод значения key
     } catch (error) {
       setResult(`Error occurred: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
