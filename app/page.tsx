@@ -25,6 +25,11 @@ const buttonStyle: React.CSSProperties = {
   padding: '10px 20px',
   fontSize: '16px',
   cursor: 'pointer',
+  backgroundColor: 'green', // Зеленый фон
+  color: 'white', // Белый текст
+  border: 'none', // Убираем рамку
+  borderRadius: '8px', // Закругленные углы
+  transition: 'background-color 0.3s', // Плавный переход цвета
 };
 
 export default Home;
