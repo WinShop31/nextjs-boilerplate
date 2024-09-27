@@ -8,7 +8,7 @@ const Home: React.FC = () => {
 
   const handleBypass = async () => {
     try {
-      const response = await fetch(`https://bypass-all.vercel.app/bypass?url=${encodeURIComponent(url)}&apikey=DemonOnTop`);
+      const response = await fetch(`https://zaaproject.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`);
       
       // Проверка статуса ответа
       if (!response.ok) {
