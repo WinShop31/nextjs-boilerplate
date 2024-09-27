@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`https://zaaproject.vercel.app/api/fluxus?url=${encodeURIComponent(trimmedUrl)}`);
+      const response = await fetch(`https://keybypass.vercel.app/api/fluxus?url=${encodeURIComponent(trimmedUrl)}`);
 
       // Проверка статуса ответа
       if (!response.ok) {
