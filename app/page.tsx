@@ -9,10 +9,16 @@ const Home: React.FC = () => {
   const handleBypass = async () => {
     try {
       const response = await fetch(`https://bypass-all.vercel.app/bypass?url=${encodeURIComponent(url)}&apikey=DemonOnTop`);
+      
+      // Проверка статуса ответа
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
       setResult(data.message || 'No response received.');
-    } catch {
-      setResult('Error occurred while fetching data.');
+    } catch (error) {
+      setResult(`Error occurred: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
