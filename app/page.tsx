@@ -1,5 +1,6 @@
+"use client"; // Добавьте это в начале файла
+
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 const Home: React.FC = () => {
   const [url, setUrl] = useState('');
