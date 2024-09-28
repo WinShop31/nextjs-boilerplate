@@ -1,4 +1,6 @@
 // app/page.tsx
+"use client"; // Добавляем эту строку
+
 import { useState } from 'react';
 
 const HomePage = () => {
