@@ -36,11 +36,11 @@ class BypassModule(loader.Module):
                     await utils.answer(message, "Ошибка при запросе к сайту.")
 
     @loader.command(
-        ru_doc="Проверить и обновить модуль",
+        ru_doc="Обновить модуль",
     )
-    async def check(self, message: Message):
-        """Проверить и обновить модуль"""
-        await utils.answer(message, "Начинаю проверку и обновление модуля...")
+    async def bypassupdate(self, message: Message):
+        """Обновить модуль"""
+        await utils.answer(message, "Начинаю обновление модуля...")
         url = "https://raw.githubusercontent.com/WinShop31/nextjs-boilerplate/refs/heads/main/hikatest.py"
 
         async with aiohttp.ClientSession() as session:
