@@ -1,19 +1,34 @@
+import json
+import aiohttp
 from hikkatl.types import Message
 from .. import loader, utils
 
 @loader.tds
 class MyModule(loader.Module):
     """My module"""
-    strings = {"name": "MyModule", "hi": "Hi!"}
-    strings_ru = {"hi": "Привет!"}
-    strings_es = {"hi": "¡Hola!"}
-    strings_de = {"hi": "Hallo!"}
+    strings = {"name": "MyModule", "key_response": 'Ваш ключ - "{key}"'}
 
     @loader.command(
-        ru_doc="Ответить 'Привет!'",
-        es_doc="Responder '¡Hola!'",
-        de_doc="Antworten 'Hallo!'",
+        ru_doc="Использование .key <url>",
     )
-    async def hh(self, message: Message):
-        """Say hi"""
-        await utils.answer(message, self.strings("hi"))
+    async def key(self, message: Message):
+        """Получить ключ из URL"""
+        args = utils.get_args(message)
+        if not args:
+            await utils.answer(message, "Использование .key <url>")
+            return
+
+        url = f"https://kobayashi-heart-attack.vercel.app/api/kobayashi?url={args[0]}&kobayashi=NoHome"
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data = await response.text()
+                    try:
+                        json_data = json.loads(data)
+                        key = json_data.get("key", "")
+                        await utils.answer(message, self.strings("key_response").format(key=key))
+                    except json.JSONDecodeError:
+                        await utils.answer(message, "Ошибка при обработке ответа.")
+                else:
+                    await utils.answer(message, "Ошибка при запросе к сайту.")
