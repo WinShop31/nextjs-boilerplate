@@ -34,22 +34,3 @@ class BypassModule(loader.Module):
                         await utils.answer(message, "Ошибка при обработке ответа.")
                 else:
                     await utils.answer(message, "Ошибка при запросе к сайту.")
-
-    @loader.command(
-        ru_doc="Обновить модуль",
-    )
-    async def bypassupdate(self, message: Message):
-        """Обновить модуль"""
-        await utils.answer(message, "Начинаю обновление модуля...")
-        url = "https://raw.githubusercontent.com/WinShop31/nextjs-boilerplate/refs/heads/main/hikatest.py"
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as response:
-                if response.status == 200:
-                    new_code = await response.text()
-                    # Здесь необходимо сохранить новый код в файл
-                    with open("hikatest.py", "w") as file:
-                        file.write(new_code)
-                    await utils.answer(message, "Модуль успешно обновлён!")
-                else:
-                    await utils.answer(message, "Ошибка при загрузке нового кода.")
