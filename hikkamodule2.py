@@ -1,5 +1,5 @@
 from hikkatl.types import Message
-from hikkatl import loader, utils
+from .. import loader, utils
 import requests
 
 API_KEY = '655f4d5532d865c18377512a9e3ef15d'
@@ -15,7 +15,6 @@ class GPTModule(loader.Module):
 
     @loader.command(
         ru_doc="Отправить текст в ChatGPT и получить ответ.",
-        # Добавьте другие языки по необходимости
     )
     async def gpt(self, message: Message):
         """Команда для взаимодействия с ChatGPT"""
@@ -35,7 +34,7 @@ class GPTModule(loader.Module):
         }
         
         data = {
-            'model': 'gpt-3.5-turbo',  # Или другой доступный вам
+            'model': 'gpt-3.5-turbo',
             'messages': [{'role': 'user', 'content': prompt}]
         }
         
@@ -47,4 +46,4 @@ class GPTModule(loader.Module):
         else:
             return self.strings("gpt_error")
 
-# Запуск бота
+# Не забудьте добавить код для инициализации модуля, если это необходимо.
